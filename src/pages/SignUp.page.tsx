@@ -10,6 +10,7 @@ import {
 import { useForm } from '@mantine/form';
 
 type SignUpFormValues = {
+  username: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -18,11 +19,22 @@ type SignUpFormValues = {
 export const SignUpPage: FC = () => {
   const form = useForm<SignUpFormValues>({
     initialValues: {
+      username: '',
       email: '',
       password: '',
       confirmPassword: '',
     },
     validate: {
+      username: (value) => {
+        const trimmed = value.trim();
+
+        if (!trimmed) {
+          return 'Username is required';
+        }
+
+        return null;
+      },
+
       email: (value) => {
         const trimmed = value.trim();
 
@@ -68,6 +80,12 @@ export const SignUpPage: FC = () => {
       <form noValidate onSubmit={form.onSubmit(() => {})}>
         <Stack gap="md">
           <Title order={2}>Sign up</Title>
+          <TextInput
+            autoComplete="username"
+            label="Username"
+            placeholder="Your username"
+            {...form.getInputProps('username')}
+          />
           <TextInput
             autoComplete="email"
             label="Email"

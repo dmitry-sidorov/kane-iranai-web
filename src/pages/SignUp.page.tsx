@@ -7,7 +7,7 @@ import {
   TextInput,
   Title,
 } from '@mantine/core';
-import { createFormContext } from '@mantine/form';
+import { useForm } from '@mantine/form';
 
 type SignUpFormValues = {
   email: string;
@@ -15,46 +15,8 @@ type SignUpFormValues = {
   confirmPassword: string;
 };
 
-const [
-  SignUpFormProvider,
-  useSignUpFormContext,
-  useSignUpForm,
-] = createFormContext<SignUpFormValues>();
-
-const SignUpFormFields: FC = () => {
-  const form = useSignUpFormContext();
-
-  return (
-    <Stack gap="md">
-      <Title order={2}>Sign up</Title>
-      <TextInput
-        autoComplete="email"
-        label="Email"
-        placeholder="you@example.com"
-        type="email"
-        {...form.getInputProps('email')}
-      />
-      <PasswordInput
-        autoComplete="new-password"
-        label="Password"
-        placeholder="Your password"
-        {...form.getInputProps('password')}
-      />
-      <PasswordInput
-        autoComplete="new-password"
-        label="Confirm password"
-        placeholder="Confirm your password"
-        {...form.getInputProps('confirmPassword')}
-      />
-      <Button fullWidth type="submit">
-        Sign up
-      </Button>
-    </Stack>
-  );
-};
-
 export const SignUpPage: FC = () => {
-  const form = useSignUpForm({
+  const form = useForm<SignUpFormValues>({
     initialValues: {
       email: '',
       password: '',
@@ -103,11 +65,33 @@ export const SignUpPage: FC = () => {
 
   return (
     <Paper maw={400} mx="auto" mt="xl" p="xl" radius="md" shadow="sm" withBorder>
-      <SignUpFormProvider form={form}>
-        <form noValidate onSubmit={form.onSubmit(() => {})}>
-          <SignUpFormFields />
-        </form>
-      </SignUpFormProvider>
+      <form noValidate onSubmit={form.onSubmit(() => {})}>
+        <Stack gap="md">
+          <Title order={2}>Sign up</Title>
+          <TextInput
+            autoComplete="email"
+            label="Email"
+            placeholder="you@example.com"
+            type="email"
+            {...form.getInputProps('email')}
+          />
+          <PasswordInput
+            autoComplete="new-password"
+            label="Password"
+            placeholder="Your password"
+            {...form.getInputProps('password')}
+          />
+          <PasswordInput
+            autoComplete="new-password"
+            label="Confirm password"
+            placeholder="Confirm your password"
+            {...form.getInputProps('confirmPassword')}
+          />
+          <Button fullWidth type="submit">
+            Sign up
+          </Button>
+        </Stack>
+      </form>
     </Paper>
   );
 };

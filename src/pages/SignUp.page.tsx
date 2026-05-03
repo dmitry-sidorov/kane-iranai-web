@@ -85,10 +85,33 @@ export const SignUpPage: FC = () => {
         <Stack gap="md">
           <Title order={2}>Sign up</Title>
           <TextInput
+            required
             autoComplete="username"
             label="Username"
             placeholder="Your username"
             {...form.getInputProps('username')}
+          />
+          <TextInput
+            required
+            autoComplete="email"
+            label="Email"
+            placeholder="you@example.com"
+            type="email"
+            {...form.getInputProps('email')}
+          />
+          <PasswordInput
+            required
+            autoComplete="new-password"
+            label="Password"
+            placeholder="Your password"
+            {...form.getInputProps('password')}
+          />
+          <PasswordInput
+            required
+            autoComplete="new-password"
+            label="Confirm password"
+            placeholder="Confirm your password"
+            {...form.getInputProps('confirmPassword')}
           />
           <TextInput
             autoComplete="given-name"
@@ -101,25 +124,6 @@ export const SignUpPage: FC = () => {
             label="Last name"
             placeholder="Optional"
             {...form.getInputProps('lastName')}
-          />
-          <TextInput
-            autoComplete="email"
-            label="Email"
-            placeholder="you@example.com"
-            type="email"
-            {...form.getInputProps('email')}
-          />
-          <PasswordInput
-            autoComplete="new-password"
-            label="Password"
-            placeholder="Your password"
-            {...form.getInputProps('password')}
-          />
-          <PasswordInput
-            autoComplete="new-password"
-            label="Confirm password"
-            placeholder="Confirm your password"
-            {...form.getInputProps('confirmPassword')}
           />
           <Button fullWidth type="submit">
             Sign up

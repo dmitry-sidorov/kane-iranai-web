@@ -11,6 +11,8 @@ import { useForm } from '@mantine/form';
 
 type SignUpFormValues = {
   username: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -20,6 +22,8 @@ export const SignUpPage: FC = () => {
   const form = useForm<SignUpFormValues>({
     initialValues: {
       username: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -85,6 +89,18 @@ export const SignUpPage: FC = () => {
             label="Username"
             placeholder="Your username"
             {...form.getInputProps('username')}
+          />
+          <TextInput
+            autoComplete="given-name"
+            label="First name"
+            placeholder="Optional"
+            {...form.getInputProps('firstName')}
+          />
+          <TextInput
+            autoComplete="family-name"
+            label="Last name"
+            placeholder="Optional"
+            {...form.getInputProps('lastName')}
           />
           <TextInput
             autoComplete="email"

@@ -9,27 +9,31 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-type SignUpFormValues = {
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+const SignUpFormField = {
+  username: 'username',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  password: 'password',
+  confirmPassword: 'confirmPassword',
+} as const;
+
+type SignUpFormFieldEnum = typeof SignUpFormField[keyof typeof SignUpFormField];
+
+type SignUpFormValues = Record<SignUpFormFieldEnum, string>;
 
 export const SignUpPage: FC = () => {
   const form = useForm<SignUpFormValues>({
     initialValues: {
-      username: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      [SignUpFormField.username]: '',
+      [SignUpFormField.firstName]: '',
+      [SignUpFormField.lastName]: '',
+      [SignUpFormField.email]: '',
+      [SignUpFormField.password]: '',
+      [SignUpFormField.confirmPassword]: '',
     },
     validate: {
-      username: (value) => {
+      [SignUpFormField.username]: (value) => {
         const trimmed = value.trim();
 
         if (!trimmed) {
@@ -39,7 +43,7 @@ export const SignUpPage: FC = () => {
         return null;
       },
 
-      email: (value) => {
+      [SignUpFormField.email]: (value) => {
         const trimmed = value.trim();
 
         if (!trimmed) {
@@ -53,7 +57,7 @@ export const SignUpPage: FC = () => {
         return null;
       },
 
-      password: (value) => {
+      [SignUpFormField.password]: (value) => {
         if (!value) {
           return 'Password is required';
         }
@@ -65,7 +69,7 @@ export const SignUpPage: FC = () => {
         return null;
       },
 
-      confirmPassword: (value, values) => {
+      [SignUpFormField.confirmPassword]: (value, values) => {
         if (!value) {
           return 'Please confirm your password';
         }
@@ -89,7 +93,7 @@ export const SignUpPage: FC = () => {
             autoComplete="username"
             label="Username"
             placeholder="Your username"
-            {...form.getInputProps('username')}
+            {...form.getInputProps(SignUpFormField.username)}
           />
           <TextInput
             required
@@ -97,33 +101,33 @@ export const SignUpPage: FC = () => {
             label="Email"
             placeholder="you@example.com"
             type="email"
-            {...form.getInputProps('email')}
+            {...form.getInputProps(SignUpFormField.email)}
           />
           <PasswordInput
             required
             autoComplete="new-password"
             label="Password"
             placeholder="Your password"
-            {...form.getInputProps('password')}
+            {...form.getInputProps(SignUpFormField.password)}
           />
           <PasswordInput
             required
             autoComplete="new-password"
             label="Confirm password"
             placeholder="Confirm your password"
-            {...form.getInputProps('confirmPassword')}
+            {...form.getInputProps(SignUpFormField.confirmPassword)}
           />
           <TextInput
             autoComplete="given-name"
             label="First name"
             placeholder="Optional"
-            {...form.getInputProps('firstName')}
+            {...form.getInputProps(SignUpFormField.firstName)}
           />
           <TextInput
             autoComplete="family-name"
             label="Last name"
             placeholder="Optional"
-            {...form.getInputProps('lastName')}
+            {...form.getInputProps(SignUpFormField.lastName)}
           />
           <Button fullWidth type="submit">
             Sign up

@@ -1,6 +1,6 @@
-import { mapSignUpModelToApiDto, type SignUpModel } from '@mappers';
+import { mapSignUpModelToApiDto, type UserModel } from '@mappers';
 
-export type SignUpInput = SignUpModel;
+export type SignUpInput = UserModel;
 
 export const signUp = async (input: SignUpInput) => {
   const payload = mapSignUpModelToApiDto(input);

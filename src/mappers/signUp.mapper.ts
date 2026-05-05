@@ -1,4 +1,4 @@
-import type { SignUpApiDto } from '../api/dto';
+import type { SignUpApiDto } from '@api';
 
 export type SignUpModel = {
   email: string;

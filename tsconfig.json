@@ -19,6 +19,12 @@
       "@/*": ["./src/*"],
       "@pages/*": ["./src/pages*"],
       "@pages*": ["./src/pages/index.ts"],
+      "@mappers/*": ["./src/mappers*"],
+      "@mappers*": ["./src/mappers/index.ts"],
+      "@components/*": ["./src/components*"],
+      "@components*": ["./src/components/index.ts"],
+      "@api/*": ["./src/api*"],
+      "@api*": ["./src/api/index.ts"],
       "@test-utils": ["./test-utils"]
     }
   },

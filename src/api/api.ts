@@ -1,4 +1,4 @@
-import { mapSignUpModelToApiDto, type SignUpModel } from '../mappers';
+import { mapSignUpModelToApiDto, type SignUpModel } from '@mappers';
 
 export type SignUpInput = SignUpModel;
 

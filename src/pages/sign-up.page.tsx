@@ -8,6 +8,7 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { FormValidator } from '@/utils';
 
 const SignUpFormField = {
   username: 'username',
@@ -22,64 +23,24 @@ type SignUpFormFieldEnum = typeof SignUpFormField[keyof typeof SignUpFormField];
 
 type SignUpFormValues = Record<SignUpFormFieldEnum, string>;
 
+const initialFormValues = {
+  [SignUpFormField.username]: '',
+  [SignUpFormField.firstName]: '',
+  [SignUpFormField.lastName]: '',
+  [SignUpFormField.email]: '',
+  [SignUpFormField.password]: '',
+  [SignUpFormField.confirmPassword]: '',
+};
+
 export const SignUpPage: FC = () => {
   const form = useForm<SignUpFormValues>({
-    initialValues: {
-      [SignUpFormField.username]: '',
-      [SignUpFormField.firstName]: '',
-      [SignUpFormField.lastName]: '',
-      [SignUpFormField.email]: '',
-      [SignUpFormField.password]: '',
-      [SignUpFormField.confirmPassword]: '',
-    },
+    initialValues: initialFormValues,
     validate: {
-      [SignUpFormField.username]: (value) => {
-        const trimmed = value.trim();
-
-        if (!trimmed) {
-          return 'Username is required';
-        }
-
-        return null;
-      },
-
-      [SignUpFormField.email]: (value) => {
-        const trimmed = value.trim();
-
-        if (!trimmed) {
-          return 'Email is required';
-        }
-
-        if (!/^\S+@\S+\.\S+$/.test(trimmed)) {
-          return 'Invalid email address';
-        }
-
-        return null;
-      },
-
-      [SignUpFormField.password]: (value) => {
-        if (!value) {
-          return 'Password is required';
-        }
-
-        if (value.length < 8) {
-          return 'Password must be at least 8 characters';
-        }
-
-        return null;
-      },
-
-      [SignUpFormField.confirmPassword]: (value, values) => {
-        if (!value) {
-          return 'Please confirm your password';
-        }
-
-        if (value !== values.password) {
-          return 'Passwords do not match';
-        }
-
-        return null;
-      },
+      [SignUpFormField.username]: FormValidator.validateUsername,
+      [SignUpFormField.email]: FormValidator.validateEmail,
+      [SignUpFormField.password]: FormValidator.validatePassword,
+      [SignUpFormField.confirmPassword]: (value, { password }) =>
+        FormValidator.validateConfirmPassword(value, password),
     },
   });
 

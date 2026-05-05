@@ -1,7 +1,7 @@
 import { notifications } from '@mantine/notifications';
 
 export const useNotification = () => {
-  const onSuccess = (title: string, message: string) => {
+  const addSuccessNotification = (title: string, message: string) => {
     notifications.show({
       color: 'green',
       title,
@@ -9,7 +9,7 @@ export const useNotification = () => {
     });
   };
 
-  const onFailure = (title: string, message: string) => {
+  const addFailureNotification = (title: string, message: string) => {
     notifications.show({
       color: 'red',
       title,
@@ -18,7 +18,7 @@ export const useNotification = () => {
   };
 
   return {
-    onSuccess,
-    onFailure,
+    addSuccessNotification,
+    addFailureNotification,
   };
 };

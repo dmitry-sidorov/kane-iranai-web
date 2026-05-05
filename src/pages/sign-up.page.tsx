@@ -36,7 +36,7 @@ const initialFormValues = {
 };
 
 export const SignUpPage: FC = () => {
-  const { onSuccess, onFailure } = useNotification();
+  const { addSuccessNotification, addFailureNotification } = useNotification();
 
   const form = useForm<SignUpFormValues>({
     initialValues: initialFormValues,
@@ -60,10 +60,10 @@ export const SignUpPage: FC = () => {
 
     try {
       await UserService.signUp(userModel);
-      onSuccess('Sign up successful', 'Your account has been created.');
+      addSuccessNotification('Sign up successful', 'Your account has been created.');
     } catch (error) {
       console.error('Sign up failed', error);
-      onFailure('Sign up failed', 'Unable to create your account. Please try again.');
+      addFailureNotification('Sign up failed', 'Unable to create your account. Please try again.');
     }
   };
 

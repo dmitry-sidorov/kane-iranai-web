@@ -1,2 +1,2 @@
-export * from './ColorSchemeToggle';
-export * from './Welcome';
+export * from './color-scheme-toggle';
+export * from './welcome';

@@ -1,10 +1,6 @@
-import { mapSignUpModelToApiDto, type UserModel } from '@mappers';
+import { SingUpUserRequestDto } from '@api';
 
-export type SignUpInput = UserModel;
-
-export const signUp = async (input: SignUpInput) => {
-  const payload = mapSignUpModelToApiDto(input);
-
+export const signUp = async (payload: SingUpUserRequestDto) => {
   const response = await fetch('/api/users/create', {
     method: 'POST',
     headers: {

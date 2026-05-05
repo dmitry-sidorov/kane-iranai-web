@@ -1,1 +1,1 @@
-export * from './sign-up.mapper';
+export * from './user.mapper';

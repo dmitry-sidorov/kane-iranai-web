@@ -8,6 +8,7 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { notifications } from '@mantine/notifications';
 import { type UserModel } from '@models';
 import { UserService } from '@/services';
 import { FormValidator } from '@/utils';
@@ -55,7 +56,21 @@ export const SignUpPage: FC = () => {
       lastName: values.lastName || undefined,
     };
 
-    await UserService.signUp(userModel);
+    try {
+      await UserService.signUp(userModel);
+      notifications.show({
+        color: 'green',
+        title: 'Sign up successful',
+        message: 'Your account has been created.',
+      });
+    } catch (error) {
+      console.error('Sign up failed', error);
+      notifications.show({
+        color: 'red',
+        title: 'Sign up failed',
+        message: 'Unable to create your account. Please try again.',
+      });
+    }
   };
 
   return (

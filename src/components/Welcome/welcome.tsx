@@ -1,5 +1,5 @@
 import { Anchor, Text, Title } from '@mantine/core';
-import classes from './Welcome.module.css';
+import classes from './welcome.module.css';
 
 export function Welcome() {
   return (
@@ -16,7 +16,7 @@ export function Welcome() {
         <Anchor href="https://mantine.dev/guides/vite/" size="lg">
           this guide
         </Anchor>
-        . To get started edit pages/Home.page.tsx file.
+        . To get started edit pages/home.page.tsx file.
       </Text>
     </>
   );

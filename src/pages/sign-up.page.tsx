@@ -8,6 +8,8 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { type UserModel } from '@models';
+import { UserService } from '@/services';
 import { FormValidator } from '@/utils';
 
 const SignUpFormField = {
@@ -44,9 +46,21 @@ export const SignUpPage: FC = () => {
     },
   });
 
+  const handleSignUpSubmit = async (values: SignUpFormValues) => {
+    const userModel: UserModel = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+      firstName: values.firstName || undefined,
+      lastName: values.lastName || undefined,
+    };
+
+    await UserService.signUp(userModel);
+  };
+
   return (
     <Paper maw={400} mx="auto" mt="xl" p="xl" radius="md" shadow="sm" withBorder>
-      <form noValidate onSubmit={form.onSubmit(() => {})}>
+      <form noValidate onSubmit={form.onSubmit(handleSignUpSubmit)}>
         <Stack gap="md">
           <Title order={2}>Sign up</Title>
           <TextInput

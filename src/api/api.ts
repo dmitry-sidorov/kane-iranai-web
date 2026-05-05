@@ -1,25 +1,9 @@
-type SignUpRequest = {
-  user: {
-    email: string;
-    username: string;
-    hash_password: string;
-  };
-};
+import { mapSignUpModelToApiDto, type SignUpModel } from '../mappers';
 
-export type SignUpInput = {
-  email: string;
-  username: string;
-  password: string;
-};
+export type SignUpInput = SignUpModel;
 
 export const signUp = async (input: SignUpInput) => {
-  const payload: SignUpRequest = {
-    user: {
-      email: input.email,
-      username: input.username,
-      hash_password: input.password,
-    },
-  };
+  const payload = mapSignUpModelToApiDto(input);
 
   const response = await fetch('/api/users/create', {
     method: 'POST',

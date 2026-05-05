@@ -1,15 +1,9 @@
+import type { SignUpApiDto } from '../api/dto';
+
 export type SignUpModel = {
   email: string;
   username: string;
   password: string;
-};
-
-export type SignUpApiDto = {
-  user: {
-    email: string;
-    username: string;
-    hash_password: string;
-  };
 };
 
 export const mapSignUpModelToApiDto = (signUpModel: SignUpModel): SignUpApiDto => ({

@@ -1,2 +1,2 @@
 export { mapSignUpModelToApiDto } from './signUp.mapper';
-export type { SignUpApiDto, SignUpModel } from './signUp.mapper';
+export type { SignUpModel } from './signUp.mapper';

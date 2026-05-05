@@ -8,7 +8,7 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
+import { useNotification } from '@/hooks';
 import { type UserModel } from '@models';
 import { UserService } from '@/services';
 import { FormValidator } from '@/utils';
@@ -36,6 +36,8 @@ const initialFormValues = {
 };
 
 export const SignUpPage: FC = () => {
+  const { onSuccess, onFailure } = useNotification();
+
   const form = useForm<SignUpFormValues>({
     initialValues: initialFormValues,
     validate: {
@@ -58,18 +60,10 @@ export const SignUpPage: FC = () => {
 
     try {
       await UserService.signUp(userModel);
-      notifications.show({
-        color: 'green',
-        title: 'Sign up successful',
-        message: 'Your account has been created.',
-      });
+      onSuccess('Sign up successful', 'Your account has been created.');
     } catch (error) {
       console.error('Sign up failed', error);
-      notifications.show({
-        color: 'red',
-        title: 'Sign up failed',
-        message: 'Unable to create your account. Please try again.',
-      });
+      onFailure('Sign up failed', 'Unable to create your account. Please try again.');
     }
   };
 

@@ -15,3 +15,13 @@ export interface SingUpUserResponseDto {
   token: string; // jwt
   email: string;
 }
+
+export interface SingInUserRequestDto {
+  email: string;
+  password: string;
+}
+
+export interface SingInUserResponseDto {
+  token: string;
+  email: string;
+}

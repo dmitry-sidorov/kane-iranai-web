@@ -1,4 +1,9 @@
-import { signUp, SingUpUserResponseDto } from "@api";
+import {
+  signIn,
+  signUp,
+  SingInUserResponseDto,
+  SingUpUserResponseDto,
+} from "@api";
 import { mapUserModelToDto } from "@mappers";
 import { UserModel } from "@models";
 
@@ -7,6 +12,13 @@ class UserService {
     const dto = mapUserModelToDto(user);
   
     return await signUp(dto);
+  }
+
+  async signIn(user: Pick<UserModel, 'email' | 'password'>): Promise<SingInUserResponseDto> {
+    return await signIn({
+      email: user.email,
+      password: user.password,
+    });
   }
 }
 

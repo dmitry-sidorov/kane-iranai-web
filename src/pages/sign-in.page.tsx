@@ -9,7 +9,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useNotification } from '@/hooks';
-import { UserService } from '@/services';
+import { TokenService, UserService } from '@/services';
 import { FormValidator } from '@/utils';
 
 const SignInFormField = {
@@ -45,6 +45,7 @@ export const SignInPage: FC = () => {
         return;
       }
 
+      TokenService.setToken(response.token);
       addSuccessNotification('Sign in successful', 'Welcome back.');
     } catch (error) {
       console.error('Sign in failed', error);

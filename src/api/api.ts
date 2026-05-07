@@ -1,11 +1,29 @@
+import { TokenService } from '@/services';
 import { SingInUserRequestDto, SingUpUserRequestDto } from '@api';
 
-const getJsonRequestOptions = (body: any) => {
+interface JsonRequestOptionsParams {
+  body?: any;
+  isAuthorized?: boolean;
+}
+
+const getJsonRequestOptions = ({ body, isAuthorized }: JsonRequestOptionsParams = {}) => {
   const jsonBody = body ? { body: JSON.stringify(body) } : {};
+  let authorizationHeader = {};
+
+  if (isAuthorized) {
+    const token = TokenService.getToken();
+
+    if (!token) console.error('Authorization token is missing!');
+
+    authorizationHeader = isAuthorized && token
+      ? { authorization: `Bearer ${TokenService.getToken()}` }
+      : {};
+  }
 
   return {
     headers: {
       'content-type': 'application/json',
+      ...authorizationHeader,
     },
     ...jsonBody,
   };
@@ -28,7 +46,7 @@ const unwrapResult = (response: Response, errorMessage = 'Unknown error') => {
 export const signUp = async (payload: SingUpUserRequestDto) => {
   const response = await fetch('/api/users/create', {
     method: 'POST',
-    ...getJsonRequestOptions(payload),
+    ...getJsonRequestOptions({ body: payload }),
   });
 
   return unwrapResult(response, 'Sign up failed with status');
@@ -37,7 +55,7 @@ export const signUp = async (payload: SingUpUserRequestDto) => {
 export const signIn = async (payload: SingInUserRequestDto) => {
   const response = await fetch('/api/users/sign_in', {
     method: 'POST',
-    ...getJsonRequestOptions(payload),
+    ...getJsonRequestOptions({ body: payload }),
   });
 
   return unwrapResult(response, 'Sign in failed with status');

@@ -10,11 +10,6 @@ class TokenService {
     return this.storage.getItem(this.tokenKey);
   }
 
-  // Keep this typo-ed alias for compatibility with requested API naming.
-  getToekn(): string | null {
-    return this.getToken();
-  }
-
   setToken(token: string): void {
     this.storage.setItem(this.tokenKey, token);
   }

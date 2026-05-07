@@ -1,3 +1,5 @@
+const PASSWORD_LENGTH_LIMIT = 4;
+
 class FormValidator {
   validateUsername(value: string) {
     const trimmed = value.trim();
@@ -28,8 +30,8 @@ class FormValidator {
       return 'Password is required';
     }
 
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters';
+    if (value.length < PASSWORD_LENGTH_LIMIT) {
+      return `Password must be at least ${PASSWORD_LENGTH_LIMIT} characters`;
     }
 
     return null;

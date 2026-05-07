@@ -9,6 +9,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useNotification } from '@/hooks';
+import { UserService } from '@/services';
 import { FormValidator } from '@/utils';
 
 const SignInFormField = {
@@ -35,8 +36,15 @@ export const SignInPage: FC = () => {
     },
   });
 
-  const handleSignInSubmit = async (_values: SignInFormValues) => {
+  const handleSignInSubmit = async ({ email, password }: SignInFormValues) => {
     try {
+      const response = await UserService.signIn({ email, password });
+
+      if (!response?.token) {
+        addFailureNotification('Sign in failed', 'Invalid email or password.');
+        return;
+      }
+
       addSuccessNotification('Sign in successful', 'Welcome back.');
     } catch (error) {
       console.error('Sign in failed', error);

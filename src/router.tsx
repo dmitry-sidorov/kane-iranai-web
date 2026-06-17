@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { HomePage, SignInPage, SignUpPage } from '@pages';
+import { BudgetPlanPage, HomePage, NotFoundPage, SignInPage, SignUpPage } from '@pages';
 import { Layout } from '@/components/layout';
 import { RoutePath } from './constants';
 
@@ -20,6 +20,14 @@ const router = createBrowserRouter([
       {
         path: RoutePath.signUp,
         element: <SignUpPage />,
+      },
+      {
+        path: RoutePath.plan,
+        element: <BudgetPlanPage />,
+      },
+      {
+        path: RoutePath.notFound,
+        element: <NotFoundPage />,
       },
     ],
   },

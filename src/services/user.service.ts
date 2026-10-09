@@ -6,12 +6,16 @@ import {
 } from "@api";
 import { mapUserModelToDto } from "@mappers";
 import { UserModel } from "@models";
+import { TokenService } from ".";
 
 class UserService {
-  async signUp(user: UserModel): Promise<SingUpUserResponseDto> {
+  async signUp(user: UserModel): Promise<void> {
     const dto = mapUserModelToDto(user);
-  
-    return await signUp(dto);
+    const response = await signUp(dto);
+
+    TokenService.setToken(response.token);
+
+    console.log('sign in response: ', response);
   }
 
   async signIn(user: Pick<UserModel, 'email' | 'password'>): Promise<SingInUserResponseDto> {

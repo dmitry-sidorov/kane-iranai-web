@@ -8,6 +8,9 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useNavigate } from 'react-router-dom';
+
+import { RoutePath } from '@/constants';
 import { useNotification } from '@/hooks';
 import { TokenService, UserService } from '@/services';
 import { FormValidator } from '@/utils';
@@ -27,6 +30,7 @@ const initialFormValues = {
 
 export const SignInPage: FC = () => {
   const { addSuccessNotification, addFailureNotification } = useNotification();
+  const navigate = useNavigate();
 
   const form = useForm<SignInFormValues>({
     initialValues: initialFormValues,
@@ -47,6 +51,7 @@ export const SignInPage: FC = () => {
 
       TokenService.setToken(response.token);
       addSuccessNotification('Sign in successful', 'Welcome back.');
+      navigate(RoutePath.plan);
     } catch (error) {
       console.error('Sign in failed', error);
       addFailureNotification('Sign in failed', 'Unable to sign in. Please try again.');

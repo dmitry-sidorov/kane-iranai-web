@@ -8,10 +8,13 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import {useNavigate} from 'react-router-dom';
+
 import { useNotification } from '@/hooks';
 import { type UserModel } from '@models';
 import { UserService } from '@/services';
 import { FormValidator } from '@/utils';
+import { RoutePath } from '@/constants';
 
 const SignUpFormField = {
   username: 'username',
@@ -37,6 +40,7 @@ const initialFormValues = {
 
 export const SignUpPage: FC = () => {
   const { addSuccessNotification, addFailureNotification } = useNotification();
+  const navigate = useNavigate();
 
   const form = useForm<SignUpFormValues>({
     initialValues: initialFormValues,
@@ -61,6 +65,7 @@ export const SignUpPage: FC = () => {
     try {
       await UserService.signUp(userModel);
       addSuccessNotification('Sign up successful', 'Your account has been created.');
+      navigate(RoutePath.plan);
     } catch (error) {
       console.error('Sign up failed', error);
       addFailureNotification('Sign up failed', 'Unable to create your account. Please try again.');

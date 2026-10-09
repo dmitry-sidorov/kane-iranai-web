@@ -24,6 +24,16 @@ class UserService {
       password: user.password,
     });
   }
+
+  isAuthorized() {
+    const token = TokenService.getToken();
+
+    if (!token) return false;
+
+    // TODO: add check token validity on api
+
+    return true;
+  }
 }
 
 export const UserServiceInstance = new UserService();

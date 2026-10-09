@@ -45,16 +45,16 @@ export const SignInPage: FC = () => {
       const response = await UserService.signIn({ email, password });
 
       if (!response?.token) {
-        addFailureNotification('Sign in failed', 'Invalid email or password.');
+        addFailureNotification('Log in failed', 'Invalid email or password.');
         return;
       }
 
       TokenService.setToken(response.token);
-      addSuccessNotification('Sign in successful', 'Welcome back.');
+      addSuccessNotification('Log in successful', 'Welcome back.');
       navigate(RoutePath.plan);
     } catch (error) {
-      console.error('Sign in failed', error);
-      addFailureNotification('Sign in failed', 'Unable to sign in. Please try again.');
+      console.error('Log in failed', error);
+      addFailureNotification('Log in failed', 'Unable to sign in. Please try again.');
     }
   };
 

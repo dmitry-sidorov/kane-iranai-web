@@ -13,6 +13,10 @@ class TokenService {
   setToken(token: string): void {
     this.storage.setItem(this.tokenKey, token);
   }
+
+  removeToken(): void {
+    this.storage.removeItem(this.tokenKey);
+  }
 }
 
 export const TokenServiceInstance = new TokenService();

@@ -3,12 +3,27 @@ import { AppShell, Button, Group, Title } from '@mantine/core';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 import { RoutePath } from '@/constants';
-import { UserService } from '@/services';
+import { TokenService, UserService } from '@/services';
+import { useNotification } from '@/hooks';
 
 export const Layout = () => {
   const navigate = useNavigate();
-  const logout = () => undefined;
   const [isUserAuthorized, setIsUserAuthorized] = useState(false);
+  const { addSuccessNotification, addFailureNotification } = useNotification();
+
+  const logout = async () => {
+    console.log('logout')
+    try {
+      await UserService.signOut();
+
+      TokenService.removeToken();
+      addSuccessNotification('Log out successful', 'See you.');
+      navigate(RoutePath.plan);
+    } catch (error) {
+      console.error('Log out failed', error);
+      addFailureNotification('Log out failed', 'Unable to sign out. Please try again.');
+    }
+  };
 
   useEffect(() => {
     setIsUserAuthorized(UserService.isAuthorized());
@@ -32,7 +47,7 @@ export const Layout = () => {
     },
     {
       label: 'Log out',
-      props: { onClick: () => logout, variant: 'outline', color: 'red' },
+      props: { onClick: logout, variant: 'outline', color: 'red' },
       isVisible: isUserAuthorized,
     },
   ].filter(({ isVisible }) => isVisible);

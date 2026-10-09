@@ -1,6 +1,7 @@
 import {
   signIn,
   signUp,
+  signOut,
   SingInUserResponseDto,
   SingUpUserResponseDto,
 } from "@api";
@@ -14,8 +15,6 @@ class UserService {
     const response = await signUp(dto);
 
     TokenService.setToken(response.token);
-
-    console.log('sign in response: ', response);
   }
 
   async signIn(user: Pick<UserModel, 'email' | 'password'>): Promise<SingInUserResponseDto> {
@@ -24,6 +23,11 @@ class UserService {
       password: user.password,
     });
   }
+
+  async signOut(): Promise<void> {
+    return await signOut();
+  }
+
 
   isAuthorized() {
     const token = TokenService.getToken();

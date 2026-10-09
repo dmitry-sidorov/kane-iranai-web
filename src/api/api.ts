@@ -43,6 +43,7 @@ const unwrapResult = (response: Response, errorMessage = 'Unknown error') => {
   return null;
 };
 
+// users
 export const signUp = async (payload: SingUpUserRequestDto) => {
   const response = await fetch('/api/users/create', {
     method: 'POST',
@@ -59,4 +60,23 @@ export const signIn = async (payload: SingInUserRequestDto) => {
   });
 
   return unwrapResult(response, 'Sign in failed with status');
+};
+
+export const signOut = async () => {
+  const response = await fetch('/api/users/sign_out', {
+    method: 'GET',
+    ...getJsonRequestOptions({ isAuthorized: true }),
+  });
+
+  return unwrapResult(response, 'Sign out failed with status');
+};
+
+// budget plans
+export const getBudgetPlans = async () => {
+  const response = await fetch('/api/plans', {
+    method: 'GET',
+    ...getJsonRequestOptions({ isAuthorized: true }),
+  });
+
+  return unwrapResult(response, 'Failed to get budget plans with status');
 };
